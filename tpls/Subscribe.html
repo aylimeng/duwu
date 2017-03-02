@@ -1,0 +1,16 @@
+<div class="sub_top">
+    <img ng-src="{{data.theme.head}}" alt="">
+    <p ng-bind="data.theme.des"></p>
+</div>
+<div class="sub_content" ng-repeat="i in data.ts">
+    <div class="sub_content_img" ui-sref="shangpin({pid:i.id})">
+        <img ng-src="{{i.pic.img}}" alt="">
+    </div>
+    <p ng-bind="i.title" ui-sref="shangpin({pid:i.id})"></p>
+    <div class="sub_user clear">
+        <img ng-src="{{i.user.head}}" alt="">
+        <span class="sub_user_name" ng-bind="i.user.nick">李铮</span>
+        <span class="sub_user_reply clear"><i class="sub_user_reply_1"></i><i class="reply_num" ng-bind="i.reply">32</i></span>
+        <span class="sub_user_praise clear"><i class="sub_user_praise_1"></i><i class="praise_num" ng-bind="i.praise">32</i></span>
+    </div>
+</div>

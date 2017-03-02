@@ -1,0 +1,19 @@
+<div style="border-bottom: 0.2rem solid #f0efef">
+<p style="color:#b2b2b2;font-size: 0.4rem;padding: 0.4rem">商品返回方式</p>
+<div style="font-size: 0.4rem;border: 0.0133rem solid;background: #f5f4f4;width: 2rem;padding: 0.2rem;margin-left: 0.4rem">快递至卖家</div>
+<div style="font-size: 0.4rem;padding: 0.4rem "><span>地址:</span><span ng-bind="data.adress">北京市北京市</span></div>
+</div>
+<form class="sh_address_f clear" action="">
+    <ul class="sh_address">
+        <li class="clear">
+            <span>联 系 人:</span>
+            <input type="text" name="" class="txname" ng-model="txname"  ng-change="change()" >
+        </li>
+        <li class="clear">
+            <span>联系电话:</span>
+            <input type="tel" name="" class="txphone" ng-model="txphone"  ng-change="change()" pattern="^1[345678][0-9]{9}$" required>
+        </li>
+    </ul>
+</form>
+
+<div class="refund_q"><button ng-click="next_t()">提 交</button></div>

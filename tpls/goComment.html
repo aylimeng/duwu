@@ -1,0 +1,21 @@
+<div class="order_xq_xx clear" style="background: white !important;" ng-repeat="i in products">
+    <img ng-src="{{i.pic.img}}"/>
+    <p ng-bind="i.title">永不磨灭之黑</p>
+    <span ng-repeat="x in i.standards"><i ng-bind="x.name">颜色</i><i>:</i> <i ng-bind="x.info.name">白色</i></span>
+</div>
+
+<div id="star">
+    <p class="comment_f">评分</p>
+    <ul class="comment_x clear">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+</div>
+
+<form method="POST" action="" class="message_f">
+    <textarea class="messagetob" ng-model="txc" name="MSG" cols=40 rows=4 placeholder="请输入10-200字的文字评价"></textarea>
+</form>
+<div class="refund_q"><button ng-click="tiJiaoBtn(products[0].id,products[0].skuId)">提交评价</button></div>

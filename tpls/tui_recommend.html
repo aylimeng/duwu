@@ -1,0 +1,80 @@
+<!--头部商品栏-->
+<div ui-view="tui_rhead" class="head">
+	<div class="tui_main"  ng-show="data.articleds!=''" >
+		<!--头部多个商品-->
+		<div class="tui_goods clear tui_head_pnum" ng-show="data.articleds.length>1" ng-click="tuiAnimata()">
+        <span class="goods_pic backx" ng-repeat="i in data.articleds">
+            <img ng-src="{{i.a.head}}" alt="">
+        </span>
+			<span class="goods_pnum" ng-show="data.articleds.length>1">相关的<i ng-bind="data.articleds.length"></i>件商品</span>
+			<span class="goods_mai" ng-show="data.articleds.length>1">购买</span>
+		</div>
+		<div class="tui_main_box"></div>
+		<!--头部一个商品-->
+		<div class="tui_goods clear " ng-repeat="i in data.articleds " ng-show="data.articleds.length==1" ui-sref="shangpin({pid:i.p.id})">
+        <span class="goods_pic backx">
+        <img ng-src="{{i.p.pic.img}}" alt="">
+        </span>
+			<p class="goods_nei" ng-bind="i.p.title"></p>
+			<span class="goods_mai">购买</span>
+		</div>
+		<div class="tui_main_box"></div>
+		<!--商品信息-->
+		<div class="tui_goods showMoreGoods clear tui_animate" ng-repeat="i in data.articleds "  ui-sref="shangpin({pid:i.p.id})">
+        <span class="goods_pic backx">
+        <img ng-src="{{i.p.pic.img}}" alt="">
+        </span>
+			<p class="goods_nei" ng-bind="i.p.title"></p>
+			<span class="goods_mai">购买</span>
+		</div>
+	</div>
+</div>
+<!--帖子详情首图和title-->
+<div style="height:1.6666rem;width: 100%; " ng-show="data.articleds!=''"></div>
+<div ng-click="tuiHeadHide()">
+<div class="tui_pic " ng-click="btn1()">
+	<img ng-src={{data.firstpic.img}} />
+</div>
+<div class="tui_title" ng-bind='data.topic.title'></div>
+<!--毒编个人信息-->
+<!--<div class="dubian" ng-click="btn1()">-->
+	<!--<div class="dubian_xx clear">-->
+		<!--<img ng-src="{{data.topic.user.head?data.topic.user.head:data.topic.writer.head}}" alt="" class="dubian_pic" border="0">-->
+		<!--<span class="dubian_user" ng-bind="data.topic.user.nick?data.topic.user.nick:data.topic.writer.nick">毕加索s</span>-->
+		<!--<span class="dubian_yc" ng-bind="data.topic.writer.append">原创内容</span>-->
+	<!--</div>-->
+	<!--<div class="dubian_xq" ng-bind="data.topic.writer.des"></div>-->
+<!--</div>-->
+<!--帖子详情内容-->
+<div class="tui_pic_text" ng-repeat = 'i in data.topic.imageText'>
+	<!--内容-->
+	<div class="tui_pic_text_box" ng-bind = 'i.c' ng-show = 'i.pic.img?0:1 && i.product?0:1;'></div>
+	<!--图片-->
+	<div  ng-show ='i.pic.img?1:0;' class="backg">
+		<img ng-src={{i.pic.img}} />
+	</div>
+	<!--商品-->
+	<div class="tui_goods_two clear" ng-click="goShangpin(i.product.type,i.product.id,data.topic.id)" ng-show="i.product?1:0" >
+		<div class="tui_goods_two_pic backx">
+			<img ng-src="{{i.product.pic.img}}">
+		</div>
+		<p class="tui_goods_two_tle" ng-bind="i.product.title"></p>
+		<span class="tui_goods_two_jg">
+			<i></i><i ng-bind='i.product.price'></i><i style="font-size: 0.2933rem" ></i>
+		<!--<i style="font-size: 0.2933rem"  ng-show="i.product.yprice!=''">￥<i ng-bind='i.product.yprice'></i>元</i>-->
+		</span>
+		<a class="tui_goods_two_cart">去购买</a>
+	</div>
+</div>
+	<!--推荐商品列表-->
+	<div class="tui_xiang clear" ng-show="data.ptopic">
+		<p class="tui_xiang_title" ng-show="data.ptopic!=''">相关推荐</p>
+		<div class="tui_xiang_list" ng-repeat="i in data.ptopic" ui-sref="tui_recommend({id:i.id})">
+			<img ng-src="{{i.pic.img}}" alt="">
+			<p ng-bind="i.title"></p>
+		</div>
+	</div>
+</div>
+
+
+

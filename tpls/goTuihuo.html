@@ -1,0 +1,33 @@
+<div class="order_xq_xx clear" style="background: white !important;border-bottom: 0.2rem solid #f0efef;" ng-repeat="i in data.products">
+    <img ng-src="{{i.pic.img}}"/>
+    <p ng-bind="i.title">永不磨灭之黑</p>
+    <span ng-repeat="x in i.standards"><i ng-bind="x.name">颜色</i><i>:</i> <i ng-bind="x.info.name">白色</i></span>
+</div>
+
+<p style="color:#b2b2b2;font-size: 0.4rem;padding: 0.5rem 0.4rem">问题描述</p>
+<form method="POST" action="">
+    <textarea style="padding: 0.1866rem;font-size:0.32rem;border:none;background:#f7f7f7;margin: 0 0.4rem;width: 8.8rem;height: 1.5rem;" ng-model="txc" name="MSG" cols=40 rows=4 placeholder="请输入问题描述"></textarea>
+</form>
+
+<p style="color:#b2b2b2;font-size: 0.4rem;padding: 0.5rem 0.4rem">检测报告</p>
+<div style="font-size:0.33rem ; margin-left: 1.5rem;float: left" class="clear" ng-repeat="i in info"  ng-click="checkImg($index)">
+        <span class="check1"  ng-class="bg[$index]"></span>
+        <span class="clear check_s" ng-bind="i"> 已有检测报告</span>
+</div>
+
+<p style="color:#b2b2b2;font-size: 0.4rem;padding: 0.5rem 0.4rem;margin-top: 0.3rem;">上传照片</p>
+<div class="clear upimg">
+    <div class="image_container">
+        <img id="preview">
+    </div>
+    <form action="" method="post" enctype="multipart/form-data" id="myForm">
+        <input id="file_upload" type="file" accept="image/*" name="file_upload" />
+    </form>
+
+</div>
+<button style="font-size: 0.3rem;background: #ed4e16;margin-left: 1rem;padding: 0.1rem;color: white;" ng-click="updataImg()">上传</button>
+
+
+
+
+<div class="refund_q"><button ng-click="next_t()">下一步</button></div>

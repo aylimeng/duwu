@@ -1,0 +1,36 @@
+<div class="mycart clear" ng-repeat="i in data.datas">
+    <div class="label_1 clear" ui-sref="merchantShop({sid:i.store.id})">
+        <!--<input type="checkbox" class="{{bg}}"  ng-click="selectShopAll()">-->
+        <div class="label_1_img"><img ng-src="{{i.store.head.img}}" alt=""></div>
+        <p ng-bind="i.store.name"></p>
+        <span></span>
+    </div>
+    <div class="label_2 " ng-repeat="x in i.products">
+        <div class="label_2_1 clear" ng-init="x.isCh=false">
+            <input type="checkbox" class="{{bg}}" ng-model="x.isCh"  ng-click="selectShopPro(x.buyCarId,x.isCh,x.price*x.pnum,x)">
+            <img ng-src="{{x.pic.img}}" alt="">
+            <div class="label_2_d clear" >
+                <p ng-bind="x.title"></p>
+                <p><span ng-repeat="y in x.standards"><i ng-bind="y.name">尺寸</i>:<i ng-bind="y.info.name"> 9m</i>&nbsp;</span></p>
+                <p class="label_2_price">¥<i ng-bind="x.price/100">880</i></p>
+                <p class="clear">
+                    <span>数量:</span>
+                    <span ng-bind="x.pnum"></span>
+                    <span class="cart_delete" ng-click="cartDelete(x.buyCarId,$index,i.store.name)">删除</span>
+                    <!--该功能暂时没有,请不要删除-->
+                    <!--<button  ng-click="" ng-disabled="x.pnum<2">-</button>-->
+                    <!--<span ng-bind="x.pnum"></span>-->
+                    <!--<button  ng-click="onePrice(x.buyCarId,x.pnum)" ng-disabled="x.pnum>=reserve">+</button>-->
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="height: 1.3333rem"></div>
+
+<div class="mycart_b clear">
+    <input type="checkbox" class={{bg}} ng-model="all"  ng-click="selectShopPro('all',all)">
+    <span>全选</span>
+    <span class="mycart_b_r" ng-click="tijiao(totalPrice,propertis)">去结算</span>
+    <span class="mycart_b_r"><i>合计</i><i>:</i><i ng-bind="totalPrice/100">1200</i></span>
+</div>

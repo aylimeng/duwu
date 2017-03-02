@@ -1,0 +1,44 @@
+<div class="xaddress_box" >
+    <!--填写收货地址-->
+    <div class="xaddress clear" ui-sref="shouhuoaddress({propertis:propertis})">
+        <span></span>
+        <span ng-show="data.to==''">请填写收货地址</span>
+        <span></span>
+        <ul class="xaddress_fl clear" ng-show="data.to[0].isclick===1">
+            <li ng-bind="data.to[0].name">姓名</li>
+            <li ng-bind="data.to[0].mobile">电话</li>
+            <li ng-bind="data.to[0].adress">地址</li>
+        </ul>
+    </div>
+    <!--所选商品基本信息-->
+    <div class="order_xq" ng-repeat="i in data.datas">
+        <!--店家名称-->
+        <div class="order_xq_sj clear">
+            <img ng-src="{{i.store.head.img}}"/>
+            <span ng-bind="i.store.name"></span>
+        </div>
+        <!--所选商品规格-->
+        <div class="order_xq_xx clear" ng-repeat="x in i.products">
+            <img ng-src="{{x.pic.img}}"/>
+            <p ng-bind="x.title"></p>
+            <span ng-repeat="y in x.standards"><i ng-bind="y.name">颜色</i><i>:</i> <i ng-bind="y.info.name" >白色</i></span>
+            <span style="float: right"><i>x</i><i ng-bind="x.pnum">1</i></span>
+        </div>
+        <!--商品服务内容-->
+        <ul class="order_xq_mx">
+            <li class="clear"><i>运费</i><i>:</i><i ng-bind="i.freight"></i></li>
+            <li class="clear"><i>运输方式</i><i>:</i><i ng-bind="i.ex"></i></li>
+            <li class="clear"><i>合计价格</i><i>:</i><i>元</i><i style="float: right" ng-bind="i.totalfee/100"></i></li>
+        </ul>
+    </div>
+    <!--订单附言-->
+    <form method="POST" action="" style="margin: 1.3333rem 1.1rem">
+        <textarea class="order_ly"  name="MSG" cols=40 rows=4 placeholder="订单附言"></textarea>
+    </form>
+</div>
+
+<!--底部确认订单-->
+<div class="order_qdxd clear">
+    <span ng-click="tijiao()">确认下单</span>
+    <span><i>总计</i><i>:</i> <i ng-bind="returnFloat(data.totalfee/100)">1200</i>元</span>
+</div>

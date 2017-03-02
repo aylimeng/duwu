@@ -1,0 +1,16 @@
+<div class="refund">
+    <div class="refund_title">在没有发货前可以直接申请退款,如已发货,请在收到货后点击售后申请退货</div>
+    <div class="refund_cause">退货原因</div>
+    <select class="refund_s" ng-model="selected" ng-options="x for x in reasonA">
+        <option value="">-退货原因-</option>
+    </select>
+    <div class="refund_cause">退款金额</div>
+    <span class="refund_i"> <i style="margin-left: 0.02rem" ng-bind="prc"></i>元</span>
+    <div class="refund_cause">退货说明 (可不填)</div>
+    <form method="POST" action="">
+        <textarea class="order_ly"  ng-model="case" placeholder="请输入退款说明" style="margin-left: 0.4rem; width: 9.2rem"></textarea>
+    </form>
+</div>
+<div class="refund_q"><button ng-click="tiJiaoBtn()">提交申请</button></div>
+
+

@@ -1,0 +1,21 @@
+<div class="shop_head" style="background: url('{{data.store.infoPic.img}}') no-repeat; background-size: cover">
+    <div class="shop_head_c clear">
+        <div class="shop_head_img"><img ng-src="{{data.store.head.img}}" alt=""></div>
+        <p class="shop_head_name" ng-bind="data.store.name">老白打火机旗舰店</p>
+        <p class="shop_head_r" ng-show="data.store.isrz==1">认证商家</p>
+    </div>
+</div>
+<div class="shop_recommend">
+    <p class="shop_recommend_t">毒物推荐</p>
+    <div class="shop_recommend_list clear">
+        <div class="shop_recommend_p" ng-repeat="i in data.datas" ui-sref="shangpin({pid:i.id})">
+            <p class="shop_recommend_p_img"><img ng-src="{{i.pic.img}}" alt=""></p>
+            <p class="shop_recommend_p_title" ng-bind="i.title">老白打火机旗舰店老白打火机旗舰店</p>
+            <span class="shop_recommend_p_price"><i ng-bind="i.price">123</i></span>
+            <span class="shop_recommend_p_cun">库存: <i ng-bind="i.reserve">23</i></span>
+        </div>       
+    </div>
+</div>
+<div class="loadingBot" style="display: none;margin-bottom: .35rem;">
+	<img  src="./image/loading.png" />
+</div>

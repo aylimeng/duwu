@@ -1,0 +1,24 @@
+<form class="sh_address_f clear" action="">
+	<ul class="sh_address">
+		<li class="clear">
+			<span>收货人姓名:</span>
+			<input type="text" name="" class="txname" ng-model="txname"  ng-change="change()" >
+		</li>
+		<li class="clear">
+			<span>收货人电话:</span>
+			<input type="text" name="" class="txphone" ng-model="txphone"  ng-change="change()" >
+		</li>
+		<li class="clear">
+			<span>所在地区 :</span>
+			<!--<input type="number" name="" class="txcity" ng-model="txcity"  ng-change="change()">-->
+			<input id="demo1" type="text" readonly="" placeholder="城市选择" value="" />
+			<input id="value1" style="width: 0;height: 0;"  name="" class="txcityid" ng-model='cityid' ng-change='change()'/>
+		</li>
+		<li class="clear">
+			<span>详细地址 :</span>
+			<input type="text" name="" class="txaddress" placeholder="街牌,楼道号等" ng-model="txaddress"  ng-change="change()">
+
+		</li>
+	</ul>
+	<p type="submit" ng-click="addBtn(propertis)">完成</p>
+</form>

@@ -1,0 +1,21 @@
+
+<div class="new_address">
+    <div class="new_address_1 " ui-sref="txaddress({propertis:propertis})"><span></span>增加新的收货地址</div>
+    <div class="new_address_a" ng-repeat="i in data">
+        <div class="new_address_2 ">
+            <p class="new_address_2_p clear">
+                <span ng-bind="i.name">苏说</span>
+                <span ng-bind="i.mobile">12345678901</span>
+            </p>
+            <p ng-bind="i.adress">深圳幸福花园</p>
+        </div>
+        <div class="new_address_3 clear" >
+            <span class="new_address_3_1 clear"  ng-click="isCurrent($index,i.id,i.isclick)">
+                <span ng-class="bg[$index]"></span>
+                <i>默认地址</i>
+            </span>
+            <span class="new_address_3_2" ng-click="del(i.id,$index)">删除</span>
+            <span class="new_address_3_2" ng-click="go(i.name,i.id,i.mobile,i.adress,propertis,i.cityid)">修改</span>
+        </div>
+    </div>
+</div>

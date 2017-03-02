@@ -1,0 +1,10 @@
+<div class="order_xq_xx clear" style="background: white !important;border-bottom: 0.013rem solid #f0efef;" ng-repeat="i in data.products">
+    <img ng-src="{{i.pic.img}}"/>
+    <p ng-bind="i.title">永不磨灭之黑</p>
+    <span ng-repeat="x in i.standards"><i ng-bind="x.name">颜色</i><i>:</i> <i ng-bind="x.info.name">白色</i></span>
+    <span ng-show="data.exchangestatus==0" style="color: #ed4e16;;font-size: 0.3rem;border: 0.0133rem solid #ed4e16;;margin-left: 2.2rem;padding: 0.05rem" ng-click="goTuihuo()">申请退货</span>
+    <span ng-show="data.exchangestatus==1" style="color: #b2b2b2;;font-size: 0.3rem;border: 0.0133rem solid #b2b2b2;;margin-left: 2.2rem;padding: 0.05rem">申请中..</span>
+    <span ng-show="data.exchangestatus==10" style="color: #b2b2b2;;font-size: 0.3rem;border: 0.0133rem solid #b2b2b2;;margin-left: 2.2rem;padding: 0.05rem">同意退货</span>
+    <span ng-show="data.exchangestatus==20" style="color: #b2b2b2;;font-size: 0.3rem;border: 0.0133rem solid #b2b2b2;;margin-left: 2.2rem;padding: 0.05rem">寄回中..</span>
+    <span ng-show="data.exchangestatus==100" style="color: #b2b2b2;;font-size: 0.3rem;border: 0.0133rem solid #b2b2b2;;margin-left: 2.2rem;padding: 0.05rem">完成退货</span>
+</div>

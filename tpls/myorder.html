@@ -1,0 +1,200 @@
+<div class="myorder" style="position: relative;">
+    <ul class="myorder_nav clear">
+        <li ng-click="qieh($index)" ng-class="bg[$index]" ng-repeat="i in nav" ng-bind="i"></li>
+    </ul>
+    <div style="height: 1.5rem"></div>
+    <!--全部-->
+    <div ng-show="bg[0]" class="borderb">
+        <div class="order_xq" ng-hide="data.total==0"  ng-repeat="i in data.orders">
+            <!--店家名称-->
+            <div class="order_xq_sj clear">
+                <img ng-src="{{i.store.head.img}}"/>
+                <span>{{i.store.name}}</span>
+                <span style="float: right;color: #ec4f17" ng-show="i.ostatus==0">待付款</span>
+                <span style="float: right;color: #ec4f17" ng-show="i.ostatus==100">待发货</span>
+                <span style="float: right;color: #ec4f17" ng-show="i.ostatus==200">待收货</span>
+                <span style="float: right;color: #ec4f17" ng-show="i.ostatus==300">已完成</span>
+                <span style="float: right;color: #ec4f17" ng-show="i.ostatus==5000">已关闭</span>
+            </div>
+            <!--所选商品规格-->
+            <div class="order_xq_xx clear" ng-repeat="x in i.products" ui-sref="shangpin({pid:x.id})">
+                <img ng-src="{{x.pic.img}}"/>
+                <p ng-bind="x.title">永不磨灭之黑</p>
+                <span ng-repeat="y in x.standards"><i ng-bind="y.name">颜色</i><i>:</i> <i ng-bind="y.info.name">白色</i></span>
+                <span style="float: right"><i>x</i><i ng-bind="x.pnum"></i></span>
+            </div>
+            <!--商品服务内容-->
+            <ul class="order_xq_mx">
+                <!--待付款-->
+                <li class="clear lih" ng-show="i.ostatus==0">
+                    <i>应付款</i><i>: <e ng-bind="i.totalfee/100">1200</e>元</i>
+                    <span class="quzf" ng-click="goPay(i.orderid)">去支付</span>
+                </li>
+                <!--待发货-->
+                <li class="clear lih" ng-show="i.ostatus==100">
+                    <i>实付款</i><i>: <e ng-bind="i.totalfee/100">元</e></i>
+                    <span class="tkz" ng-show="i.exchangestatus==1">退款中</span>
+                    <!--传值给功能div-->
+                    <span class="sjfw" ng-click="daifh(i.mobile,i.store.id,i.orderid,data.reason,i.totalfee/100,i.exchangestatus,i.ostatus)">商家服务</span>
+                </li>
+                <!--待收货-->
+                <li class="clear lih" ng-show="i.ostatus==200">
+                    <p>
+                        <span ng-bind="i.express.name">顺丰快递 </span>
+                        <span> 单号:</span><span ng-bind="i.express.expressno">v78990009</span><br>
+                        <span ng-bind="i.up * 1000 | date:'dd-MM-yyyy HH:mm:ss'"></span>
+                    </p>
+                    <a class="ckwl" ng-href="{{i.expressmove}}">查看物流</a>
+                </li>
+                <li class="clear lih" ng-show="i.ostatus==200">
+                    <i>实付款</i><i>: <e ng-bind="i.totalfee/100">元</e></i>
+                    <span class="qrsh" ng-click="quePrc(i.orderid)">确认收货</span>
+                </li>
+                <!--已完成-->
+                <li class="clear lih" ng-show="i.ostatus==300">
+                    <i>实付款</i><i>: <e ng-bind="i.totalfee/100">元</e></i>
+                    <span class="quzf" ng-show="i.appraise==0" ng-click="goComment(i.orderid,i.products)">去评价</span>
+                    <span class="sjfw" ng-show="i.appraise==0" ng-click="daifh(i.mobile,i.store.id,i.orderid,data.reason,i.totalfee/100,i.refund,i.ostatus)">商家服务</span>
+                    <span class="sjfw" ng-show="i.appraise==1" ng-click="sqth(i.mobile,i.store.id,i.orderid,data.reason,i.totalfee/100,i.ostatus)" style="padding: 0.15rem 0.65rem;">售后</span>
+                </li>
+                <!--已关闭-->
+                <li class="clear lih" ng-show="i.ostatus==5000">
+                    <i>实付款</i><i>: <e ng-bind="i.totalfee/100">元</e></i>
+                    <span class="sjfw" ng-show="i.appraise==0" ng-click="daifh(i.mobile,i.store.id,i.orderid,data.reason,i.totalfee/100,i.refund,i.ostatus)">商家服务</span>
+                </li>
+            </ul>
+        </div>
+        <!--功能div-->
+        <!--商家服务-->
+        <div class="callshop">
+            <ul class="callshop_ul">
+                <li>商家服务</li>
+                <li>商家电话: <i ng-bind="phone"></i></li>
+                <li ng-click="Tob(sid,oid)">给商家留言</li>
+                <li ng-show="ostatus==100 && refund==0" ng-click="ToRefund(oid,reason,totalfee)">申请退款</li>
+                <li ng-show="refund==1" ng-click="overlay()">申请中</li>
+                <li ng-show="ostatus==300" ng-click="ToRefund_huo(oid,reason,totalfee)">申请退货</li>
+                <li ng-show="ostatus==5000" ng-click="ToRefund_huo(oid,reason,totalfee)">退货已完成</li>
+                <li ng-click="overlay()" style="border: none;">取消</li>
+            </ul>
+        </div>
+        <!--确认收货-->
+        <div class="quePrc">
+            <p>确认是否已收货</p>
+            <ul class="clear">
+                <li ng-click="quePrcf()">取消</li>
+                <li ng-click="quePrcr(oid)">确认</li>
+            </ul>
+        </div>
+        <div class="overlay"></div>
+    </div>
+    <!--待付款-->
+    <div ng-show="bg[1]" class="borderb">
+        <div class="order_xq" ng-show="i.ostatus==0" ng-repeat="i in data.orders">
+            <!--店家名称-->
+            <div class="order_xq_sj clear">
+                <img ng-src="{{i.store.head.img}}"/>
+                <span>{{i.store.name}}</span>
+                <span style="float: right;color: #ec4f17" ng-show="i.ostatus==0">待付款</span>
+            </div>
+            <!--所选商品规格-->
+            <div class="order_xq_xx clear" ng-repeat="x in i.products" ui-sref="shangpin({pid:x.id})">
+                <img ng-src="{{x.pic.img}}"/>
+                <p ng-bind="x.title">永不磨灭之黑</p>
+                <span ng-repeat="y in x.standards"><i ng-bind="y.name">颜色</i><i>:</i> <i ng-bind="y.info.name">白色</i></span>
+                <span style="float: right"><i>x</i><i ng-bind="x.pnum"></i></span>
+            </div>
+            <!--商品服务内容-->
+            <ul class="order_xq_mx">
+                <li class="clear lih" ng-show="i.ostatus==0"><i>应付款</i><i>: <e ng-bind="i.totalfee/100">1200</e>元</i><span class="quzf" ng-click="goPay(i.orderid)">去支付</span></li>
+            </ul>
+        </div>
+    </div>
+    <!--待收货-->
+    <div ng-show="bg[2]" class="borderb">
+        <div class="order_xq" ng-show="i.ostatus==200" ng-repeat="i in data.orders">
+            <!--店家名称-->
+            <div class="order_xq_sj clear">
+                <img ng-src="{{i.store.head.img}}"/>
+                <span ng-bind="i.store.name">迪拜老白</span>
+                <span style="float: right;color: #ec4f17">待收货</span>
+            </div>
+            <!--所选商品规格-->
+            <div class="order_xq_xx clear" ui-sref="shangpin({pid:x.id})" ng-repeat="x in i.products">
+                <img ng-src="{{x.pic.img}}"/>
+                <p ng-bind="x.title">永不磨灭之黑</p>
+                <span ng-repeat="y in x.standards"><i ng-bind="y.name">颜色</i><i>:</i> <i ng-bind="y.info.name">白色</i></span>
+                <span style="float: right"><i>x</i><i ng-bind="x.pnum">1</i></span>
+            </div>
+            <!--商品服务内容-->
+            <ul class="order_xq_mx">
+                <li class="clear lih" ng-show="i.ostatus==200">
+                    <p>
+                        <span ng-bind="i.express.name">顺丰快递 </span>
+                        <span> 单号:</span><span ng-bind="i.express.expressno">v78990009</span><br>
+                        <span ng-bind="i.up * 1000 | date:'dd-MM-yy HH:mm:ss'"></span>
+                    </p>
+                    <a class="ckwl" ng-href="{{i.expressmove}}">查看物流</a>
+                </li>
+                <li class="clear lih" ng-show="i.ostatus==200">
+                    <i>实付款</i><i>: <e ng-bind="i.totalfee/100">元</e></i>
+                    <span class="qrsh" ng-click="quePrc(i.orderid)">确认收货</span>
+                </li>
+            </ul>
+        </div>
+        <!--功能div-->
+        <div class="quePrc">
+            <p>确认是否已收货</p>
+            <ul class="clear">
+                <li ng-click="quePrcf()">取消</li>
+                <li ng-click="quePrcr(oid)">确认</li>
+            </ul>
+        </div>
+        <div class="overlay"></div>
+    </div>
+    <!--待评价-->
+    <div ng-show="bg[3]" class="borderb">
+        <div class="order_xq" ng-show="i.ostatus==300 && i.appraise==0" ng-repeat="i in data.orders">
+            <!--店家名称-->
+            <div class="order_xq_sj clear" ng-show="i.appraise==0">
+                <img ng-src="{{i.store.head.img}}"/>
+                <span ng-bind="i.store.name">迪拜老白</span>
+                <span style="float: right;color: #ec4f17" >待评价</span>
+            </div>
+            <!--所选商品规格-->
+            <div ng-show="i.appraise==0" class="order_xq_xx clear" ui-sref="shangpin({pid:x.id})" ng-repeat="x in i.products">
+                <img ng-src="{{x.pic.img}}"/>
+                <p ng-bind="x.title">永不磨灭之黑</p>
+                <span ng-repeat="y in x.standards"><i ng-bind="y.name">颜色</i><i>:</i> <i ng-bind="y.info.name">白色</i></span>
+                <span style="float: right"><i>x</i><i ng-bind="x.pnum">1</i></span>
+            </div>
+            <!--商品服务内容-->
+            <ul class="order_xq_mx">
+                <li class="clear lih" ng-show="i.appraise==0">
+                    <i>应付款</i>
+                    <i>: <e ng-bind="i.totalfee/100">1200</e>元</i>
+                    <span class="quzf" ng-click="goComment(i.orderid,i.products)">去评价</span>
+                    <span class="sjfw" ng-click="daifh(i.mobile,i.store.id,i.orderid,data.reason,i.totalfee/100,i.exchangestatus)">商家服务</span>
+                </li>
+            </ul>
+        </div>
+        <!--功能div-->
+        <div class="callshop">
+            <ul class="callshop_ul">
+                <li>商家服务</li>
+                <li>商家电话: <i ng-bind="phone"></i></li>
+                <li ng-click="Tob(sid,oid)">给商家留言</li>
+                <li ng-show="exchangestatus==0" ng-click="ToRefund(oid,reason,totalfee)">申请退款</li>
+                <li ng-show="exchangestatus==1" ng-click="overlay()">申请中</li>
+                <li ng-click="overlay()">取消</li>
+            </ul>
+        </div>
+        <div class="overlay"></div>
+    </div>
+    <!--orderse无数据是显示的提示页面-->
+    
+<div class="loadingBot" style="display: none;">
+	<img  src="./image/loading.png" />
+</div>
+    <div ng-show="data.total==0" class="order_null"><p>您还没有相关订单</p><p>可以去看看有哪些想买的</p></div>
+</div>

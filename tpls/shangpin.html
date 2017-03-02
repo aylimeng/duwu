@@ -1,0 +1,143 @@
+<!--轮播图-->
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide swiper_pic backg"  ng-repeat="i in data.pinfo.images">
+            <img  ng-src="{{i.img}}" alt="">
+        </div>
+    </div>
+    <div class="swiper-pagination"></div>
+</div>
+<!--商品名,价格-->
+<div class="sp_title" ng-bind="data.pinfo.title"></div>
+<div class="sp_xinxi clear">
+    <span class="sp_price"><i ng-bind="data.pinfo.price"></i></span>
+    <span class="sp_price2" ng-show = 'data.pinfo.yprice==""?0:1;'><i ng-bind="data.pinfo.yprice">1800</i></span>
+    <span class="sp_post" ng-bind="data.pinfo.c"></span>
+    <span class="sp_post" style="margin-right: 0.2rem">邮费:</span>
+</div>
+
+<!--买家评价-->
+<!--<div class="sp_pingjia clear">-->
+<!--<span class="mj_pingjia">买家评价 (<i>5</i>)</span>-->
+<!--<span class="sp_xing"> *******</span>-->
+<!--<span class="sp_duo">></span>-->
+<!--</div>-->
+
+<!--卖家店铺-->
+<div class="user_shop clear">
+    <span class="user_shop_pic">
+        <img ng-src={{data.pinfo.store.head.img}} alt="">
+    </span>
+    <div class="user_shop_c clear">
+        <p class="user_shop_title" ng-bind="data.pinfo.store.name"></p>
+        <span class="user_shop_dw clear">
+            <i>毒物</i>
+            <i ng-bind="data.pinfo.store.productCount"></i>
+        </span>
+        <span class="user_shop_dw usd_m">|</span>
+        <span class="user_shop_dw clear">
+            <i>关注</i>
+            <i ng-bind="data.pinfo.store.totalcare"></i>
+        </span>
+    </div>
+    <span class="user_shop_in" ui-sref="merchantShop({sid:data.pinfo.store.id})"></span>
+</div>
+<!--商品详情-->
+<!--亮点-->
+<p class="sp_details_dot"><span>亮点</span></p>
+<div ng-repeat="i in data.pinfo.ti" >
+    <div class="sp_details_pic backg" ng-show="i.pic.img?1:0">
+        <img ng-src={{i.pic.img}}>
+    </div>
+    <div class="sp_details_con" ng-bind="i.c" ng-show="i.pic.img?0:1"></div>
+</div>
+<!--参数-->
+<p class="sp_details_dot"><span>参数</span></p>
+<ul class="sp_details_cs" >
+    <li class="clear" ng-repeat="i in data.pinfo.productParm">
+        <span style="font-size: 0.3466rem;" ng-bind="i.name"></span>
+        <span  class="clear" style="width: 6.6rem"><i  ng-bind="i.value" style="display: block;float: right;font-size: 0.3466rem;"></i></span>
+    </li>
+</ul>
+<!--配送售后-->
+<p class="sp_details_dot"><i>配<span>送售</span>后</i></p>
+<ul class="sp_details_pssh" >
+    <li class="clear" ng-repeat="i in data.pinfo.storeAfterSale">
+        <span>
+            <i>·</i><i ng-bind="i.name"></i><i>:</i>
+        </span>
+        <span ng-bind="i.c"></span>
+    </li>
+</ul>
+
+
+<!--加入购物车,立即购-->
+<div class="sp_shopping">
+    <span ui-sref="mycart({uid:uid})"></span>
+    <!--<span ui-sref="myorder"></span>-->
+    <!--<span></span>-->
+    <!--测试跳转到我的订单页面-->
+    <span ng-click="catBtn(false)"></span>
+    <span ng-click="catBtn(true)"></span>
+</div>
+<!--加入购物车,立即购买浮层,默认样式隐藏-->
+<div class="floating ">
+    <div class="floating_js clear">
+        <img ng-src="{{data.pinfo.pic.img}}" alt="">
+        <p ng-bind="data.pinfo.title">商品名称</p>
+        <!--<span ng-bind="data.pinfo.price">100元</span>-->
+        <span ng-bind="price1*count/100"></span>
+        <span ng-show="price1" style="font-size: 0.3rem;margin:0.25rem 0 0 0.1rem">元</span>
+    </div>
+    <ul class="floating_gg">
+        <li class="clear {{changes}}" ng-repeat="i in data.pinfo.standards" ng-show='i.id==1?1:0'>
+            <span class="floating_color" ng-bind="i.name">123</span>
+            <div class="floating_gg_l clear">
+			<span  style="margin-bottom: 0.2rem" class="floating_xz" ng-repeat="x in i.info" ng-class="bg[$index]" ng-click="i.id==1?isCurrent($index,x.id):Current($index)">
+			{{x.name}}
+		</span>
+            </div>
+        </li>
+        <li class="clear {{changes}}" ng-repeat="i in data.pinfo.standards" ng-show='i.id==1?0:1'>
+            <span class="floating_color" ng-bind="i.name">123</span>
+            <span class="floating_xz" ng-repeat="x in i.info" ng-class="bga[$index]" ng-click="i.id==1?isCurrent($index):Current($index,x.id)">{{x.name}}</span>
+        </li>
+        <!--<li class="clear">-->
+        <!--<span class="floating_color">规格</span>-->
+        <!--<span class="floating_xz">统一规格</span>-->
+        <!--</li>-->
+        <li class="clear" style="margin-bottom: 0.6666rem">
+            <span class="floating_color">数量</span>
+            <div class="floating_btn">
+                <button class="floating_btn_1" ng-click="count = count - 1" ng-disabled="count<2">-</button>
+                <span class="floating_btn_sl" style="margin: 0;">{{count}}</span>
+                <button class="floating_btn_1" ng-click="count = count + 1" ng-disabled="count>=reserve">+</button>
+            </div>
+        </li>
+    </ul>
+    <div class="floating_qd">
+        <span ng-show="isAddCart" ui-sref="qrorder({propertis:propertis})" ng-click="btn()">确定</span>
+        <span ng-show="!isAddCart" ng-click="btn1()">加入购物车</span>
+    </div>
+</div>
+<div class="overlay" ng-click="overlay()"></div>
+
+
+
+<!--轮播图控制器-->
+<script>
+    $(function(){
+        setTimeout(
+                function(){
+                    var swiper = new Swiper('.swiper-container', {
+                        pagination: '.swiper-pagination',
+                        loop:true,
+                        grabCursor: true,
+                        autoplayDisableOnInteraction : false,
+                        paginationClickable: true,
+                        autoplay: 2500
+                    })
+                },500)
+    })
+</script>
+

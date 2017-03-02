@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="libs/jquery-1.9.1.min.js" ></script>
+		
+		<script src="libs/util.js"></script>
+		<script type="text/javascript" src="libs/weiChat.js" ></script>
+		<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+		<style>
+			*{margin: 0;padding: 0;}
+		</style>
+	</head>
+	
+	<body>
+	</body>
+	<script>
+		var uid = getCookie('uid');
+			if(!uid){//如果没有uid
+				var code = getQueryString("code");// 获取微信API返回的code
+				if(!code){//如果url中没有code参数
+					uid = 0;
+					setCookie('uid',uid);
+				}else {
+					getUserByWeiChatOpenId(code);//调用code生成的用户uid (cookie)
+					uid = getCookie('uid');
+				}
+			}
+		var cUrl = 'https://www.duwu.mobi/wxduwu/home.html';
+		var a = 123;
+		weiChatLogin(cUrl,a);
+		
+		
+	
+	</script>
+</html>
